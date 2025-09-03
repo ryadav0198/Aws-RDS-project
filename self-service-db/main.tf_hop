@@ -15,10 +15,3 @@ module "rds" {
   backup_retention = var.backup_retention
   owner            = var.owner
 }
-
-resource "aws_s3_bucket" "my_bucket" {
-  bucket = "privatebucket-26aug"
-  force_destroy = true
-  # Add other configs (versioning, tags, encryption, etc.)
-}
-

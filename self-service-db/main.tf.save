@@ -17,8 +17,6 @@ module "rds" {
 }
 
 resource "aws_s3_bucket" "my_bucket" {
-  bucket = "privatebucket-26aug"
-  force_destroy = true
+  bucket = "my-existing-bucket-name"
   # Add other configs (versioning, tags, encryption, etc.)
 }
-

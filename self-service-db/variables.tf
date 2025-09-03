@@ -19,7 +19,7 @@ variable "db_engine" {
 }
 
 variable "db_engine_version" {
-  default = "15.3"
+  default = "15.7"
 }
 
 variable "db_instance_class" {
@@ -31,7 +31,7 @@ variable "db_allocated_storage" {
 }
 
 variable "db_username" {
-  default = "admin"
+  default = "masterdb"
 }
 
 variable "db_password" {

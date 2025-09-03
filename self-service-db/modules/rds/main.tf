@@ -1,4 +1,4 @@
-resource "aws_db_instance" "this" {
+resource "aws_db_instance" "Ethans-db" {
   identifier              = "${var.project}-${var.environment}-db"
   allocated_storage       = var.storage
   engine                  = var.engine
