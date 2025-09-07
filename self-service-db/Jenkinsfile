@@ -36,7 +36,7 @@ stage('Debug') {
             steps {
                 sh 'terraform init'
             }
-        }
+        
 
             steps {
                 sh """
