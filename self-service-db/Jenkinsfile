@@ -1,5 +1,13 @@
 pipeline {
     agent any
+    
+    environment {
+    AWS_REGION = 'ap-south-1'
+    AWS_ACCESS_KEY_ID = credentials('062239d0-7642-458d-9972-40ce5b3ca690')   // The ID you set in Jenkins
+    AWS_SECRET_ACCESS_KEY = credentials('062239d0-7642-458d-9972-40ce5b3ca690')
+    TF_VAR_db_password = credentials('rds_db_password')
+}
+
 
     parameters {
         string(name: 'DB_ENGINE', defaultValue: 'postgres', description: 'Database Engine')
@@ -11,7 +19,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/my-org/self-service-db.git'
+                git 'https://github.com/ryadav0198/Aws-RDS-project.git'
+                credentialsId: 'Git-hub-details'
             }
         }
 
