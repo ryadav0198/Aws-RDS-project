@@ -36,7 +36,7 @@ stage('Debug') {
         stage('Terraform Init')  {
             steps {
 		dir('self-service-db'){
-
+		sh 'pwd && ls -l'
                 sh 'terraform init'
                 sh """
                 terraform plan -var="db_engine=${params.DB_ENGINE}" \
