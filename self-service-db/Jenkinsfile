@@ -33,9 +33,10 @@ stage('Debug') {
 }
 
 
-        stage('Terraform Init') 
-		dir('self-service-db') {
+        stage('Terraform Init')  {
             steps {
+		dir('self-service-db'){
+
                 sh 'terraform init'
                 sh """
                 terraform plan -var="db_engine=${params.DB_ENGINE}" \
@@ -44,6 +45,7 @@ stage('Debug') {
                                -out=tfplan
                 """
             }
+}
         }
 
         stage('Approval') {
