@@ -33,7 +33,8 @@ stage('Debug') {
 }
 
 
-        stage('Terraform Init') {
+        stage('Terraform Init') 
+		dir('self-service-db') {
             steps {
                 sh 'terraform init'
                 sh """

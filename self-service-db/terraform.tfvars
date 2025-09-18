@@ -1,5 +1,5 @@
 db_password      = "SuperSecret123!"
 db_subnet_group  = "ethans-private-subnet-group"
 security_groups  = ["sg-0f155b39ccf287e05"]
-environment      = "developmnet"
-owner            = "team-develomet"
+environment      = "development"
+owner            = "team-development"
