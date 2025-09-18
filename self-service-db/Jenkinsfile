@@ -35,10 +35,10 @@ stage('Debug') {
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
-            }
+            #}
         
 
-            steps {
+            #steps {
                 sh """
                 terraform plan -var="db_engine=${params.DB_ENGINE}" \
                                -var="db_instance_class=${params.DB_INSTANCE_CLASS}" \
