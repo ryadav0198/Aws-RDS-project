@@ -2,10 +2,10 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'ap-south-1'
-        AWS_ACCESS_KEY_ID = credentials('062239d0-7642-458d-9972-40ce5b3ca690')
+        AWS_REGION          = 'ap-south-1'
+        AWS_ACCESS_KEY_ID   = credentials('062239d0-7642-458d-9972-40ce5b3ca690')   // Your Jenkins creds ID
         AWS_SECRET_ACCESS_KEY = credentials('062239d0-7642-458d-9972-40ce5b3ca690')
-        TF_VAR_db_password = credentials('rds_db_password')
+        TF_VAR_db_password  = credentials('rds_db_password')
     }
 
     parameters {
@@ -27,7 +27,7 @@ pipeline {
 
         stage('Debug') {
             steps {
-                sh 'pwd && ls -l'
+                sh 'pwd && ls -lR'
             }
         }
 
