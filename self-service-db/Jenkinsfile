@@ -35,6 +35,7 @@ stage('Debug') {
 
         stage('Terraform Init')  {
             steps {
+		sh 'pwd && ls -l'
 		dir('self-service-db'){
 		sh 'pwd && ls -l'
                 sh 'terraform init'
