@@ -19,6 +19,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+		deleteDir()
                 git branch: 'dev-branch', 
 		   url: 'https://github.com/ryadav0198/Aws-RDS-project.git',
                   credentialsId: '7b5ee4d3-2365-4db3-86b5-54100841613a'
