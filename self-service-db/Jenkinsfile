@@ -1,12 +1,13 @@
 pipeline {
     agent any
-
+    
     environment {
-        AWS_REGION          = 'ap-south-1'
-        AWS_ACCESS_KEY_ID   = credentials('062239d0-7642-458d-9972-40ce5b3ca690')   // Your Jenkins creds ID
-        AWS_SECRET_ACCESS_KEY = credentials('062239d0-7642-458d-9972-40ce5b3ca690')
-        TF_VAR_db_password  = credentials('rds_db_password')
-    }
+    AWS_REGION = 'ap-south-1'
+    AWS_ACCESS_KEY_ID = credentials('062239d0-7642-458d-9972-40ce5b3ca690')   // The ID you set in Jenkins
+    AWS_SECRET_ACCESS_KEY = credentials('062239d0-7642-458d-9972-40ce5b3ca690')
+    TF_VAR_db_password = credentials('rds_db_password')
+}
+
 
     parameters {
         string(name: 'DB_ENGINE', defaultValue: 'postgres', description: 'Database Engine')
@@ -18,32 +19,34 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                deleteDir()
-                git branch: 'dev-branch',
-                    url: 'https://github.com/ryadav0198/Aws-RDS-project.git',
-                    credentialsId: '7b5ee4d3-2365-4db3-86b5-54100841613a'
+		deleteDir()
+                git branch: 'dev-branch', 
+		   url: 'https://github.com/ryadav0198/Aws-RDS-project.git',
+                  credentialsId: '7b5ee4d3-2365-4db3-86b5-54100841613a'
             }
         }
 
-        stage('Debug') {
-            steps {
-                sh 'pwd && ls -lR'
-            }
-        }
+stage('Debug') {
+    steps {
+        sh 'pwd && ls -l'
+    }
+}
 
-        stage('Terraform Init & Plan') {
+
+        stage('Terraform Init')  {
             steps {
-                dir('self-service-db') {
-                    sh 'pwd && ls -l'
-                    sh 'terraform init'
-                    sh """
-                    terraform plan -var="db_engine=${params.DB_ENGINE}" \
-                                   -var="db_instance_class=${params.DB_INSTANCE_CLASS}" \
-                                   -var="environment=${params.ENV}" \
-                                   -out=tfplan
-                    """
-                }
+		sh 'pwd && ls -l'
+		dir('self-service-db'){
+		sh 'pwd && ls -lrt'
+                sh 'terraform init'
+                sh """
+                terraform plan -var="db_engine=${params.DB_ENGINE}" \
+                               -var="db_instance_class=${params.DB_INSTANCE_CLASS}" \
+                               -var="environment=${params.ENV}" \
+                               -out=tfplan
+                """
             }
+}
         }
 
         stage('Approval') {
@@ -54,17 +57,13 @@ pipeline {
 
         stage('Terraform Apply') {
             steps {
-                dir('self-service-db') {
-                    sh 'terraform apply -auto-approve tfplan'
-                }
+                sh 'terraform apply tfplan'
             }
         }
 
         stage('Output') {
             steps {
-                dir('self-service-db') {
-                    sh 'terraform output'
-                }
+                sh 'terraform output'
             }
         }
     }
